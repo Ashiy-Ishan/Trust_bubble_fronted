@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="60dp"
+    android:height="60dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Circle bubble -->
+    <path
+        android:fillColor="#8C4DA3FF"
+        android:strokeColor="#BEBEC7D1"
+        android:strokeWidth="3"
+        android:pathData="M60,3
+                          A57,57 0 1,1 59.85,3
+                          Z"/>
+
+    <!-- Letter B (vector path) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M42,30 L63,30 C72,30 78,36 78,43.5 C78,51 72,57 63,57 L42,57 Z M42,63 L64.5,63 C73.5,63 81,69 81,78 C81,87 73.5,93 64.5,93 L42,93 Z"/>
+</vector>
