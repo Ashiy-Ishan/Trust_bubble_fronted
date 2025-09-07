@@ -2,55 +2,35 @@ package com.example.trust_bubble.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trust_bubble.R
-import com.example.trust_bubble.databinding.DecisionCardItemBinding
+import com.example.trust_bubble.databinding.DecisionStepItemBinding
 
-// Data class to hold the info for one decision card
-data class DecisionPoint(
-    val question: String,
-    val yesText: String,
-    val noText: String,
-    val pathTaken: Path
-)
-enum class Path { YES, NO, UNKNOWN }
+// A simple data class to hold the information for each step in the linear path
+data class DecisionStep(val type: StepType, val text: String)
+enum class StepType { QUESTION, REASONING, RESULT } // 'REASONING' replaces 'ANSWER'
 
-class DecisionTreeAdapter(private val decisionPath: List<DecisionPoint>) :
+class DecisionTreeAdapter(private val steps: List<DecisionStep>) :
     RecyclerView.Adapter<DecisionTreeAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: DecisionCardItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: DecisionStepItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DecisionCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = DecisionStepItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val point = decisionPath[position]
-        val context = holder.itemView.context
+        val step = steps[position]
+        holder.binding.tvStepText.text = step.text
 
-        holder.binding.tvQuestion.text = point.question
-        holder.binding.tvYesText.text = point.yesText
-        holder.binding.tvNoText.text = point.noText
-
-        // Highlight the path that was taken and gray out the one that wasn't
-        if (point.pathTaken == Path.YES) {
-            // Highlight YES path
-            holder.binding.tvYesLabel.setTextColor(ContextCompat.getColor(context, R.color.brand_purple))
-            holder.binding.tvYesText.setTextColor(ContextCompat.getColor(context, R.color.text_color_primary))
-            // Gray out NO path
-            holder.binding.tvNoLabel.setTextColor(ContextCompat.getColor(context, R.color.text_color_secondary))
-            holder.binding.tvNoText.setTextColor(ContextCompat.getColor(context, R.color.text_color_secondary))
-        } else {
-            // Highlight NO path
-            holder.binding.tvNoLabel.setTextColor(ContextCompat.getColor(context, R.color.brand_purple))
-            holder.binding.tvNoText.setTextColor(ContextCompat.getColor(context, R.color.text_color_primary))
-            // Gray out YES path
-            holder.binding.tvYesLabel.setTextColor(ContextCompat.getColor(context, R.color.text_color_secondary))
-            holder.binding.tvYesText.setTextColor(ContextCompat.getColor(context, R.color.text_color_secondary))
+        // Set the correct icon for the step type
+        when (step.type) {
+            StepType.QUESTION -> holder.binding.ivStepIcon.setImageResource(R.drawable.ic_question)
+            StepType.REASONING -> holder.binding.ivStepIcon.setImageResource(R.drawable.ic_reasoning) // Use a new 'reasoning' icon
+            StepType.RESULT -> holder.binding.ivStepIcon.setImageResource(R.drawable.ic_result)
         }
     }
 
-    override fun getItemCount() = decisionPath.size
+    override fun getItemCount() = steps.size
 }

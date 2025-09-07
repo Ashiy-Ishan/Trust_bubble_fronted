@@ -10,73 +10,68 @@ import com.example.trust_bubble.databinding.ActivityDecisionTreeBinding
 class DecisionTreeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDecisionTreeBinding
+    private val decisionSteps = mutableListOf<DecisionStep>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDecisionTreeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.treeContainer.removeAllViews() // Clear old text-based views
-        val recyclerView = androidx.recyclerview.widget.RecyclerView(this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.treeContainer.addView(recyclerView)
-
+        // Get the JSON string passed from the previous activity
         val jsonString = intent.getStringExtra("decision_tree_json")
+
         if (jsonString != null) {
             try {
+                // Use Gson to convert the JSON string back into a DecisionNode object
                 val decisionTree = Gson().fromJson(jsonString, DecisionNode::class.java)
-                // Convert the nested tree into a list of DecisionPoint cards
-                val decisionPath = buildDecisionPath(decisionTree)
-                recyclerView.adapter = DecisionTreeAdapter(decisionPath)
+
+                // Convert the nested tree structure into a simple list of steps
+                buildLinearPath(decisionTree)
+
+                // Set up the RecyclerView to display the linear list of steps
+                binding.decisionTreeRecyclerView.apply {
+                    adapter = DecisionTreeAdapter(decisionSteps)
+                    layoutManager = LinearLayoutManager(this@DecisionTreeActivity)
+                }
+
             } catch (e: Exception) {
-                // Handle error if JSON is malformed
+                // Handle parsing errors gracefully
+                // For example, you could display a Toast or a message to the user
             }
         }
     }
 
-    // This function walks the AI's path and builds a list of cards to display
-    private fun buildDecisionPath(rootNode: DecisionNode): List<DecisionPoint> {
-        val path = mutableListOf<DecisionPoint>()
-        var currentNode: DecisionNode? = rootNode
+    /**
+     * This function recursively traverses the AI's decision path,
+     * converting the nested tree into a flat, linear list of steps.
+     * @param node The current decision node to process.
+     */
+    private fun buildLinearPath(node: DecisionNode?) {
+        if (node == null) return
 
-        while (currentNode?.decision == null && currentNode?.question != null) {
-            val question = currentNode.question
-            val yesNode = currentNode.yes
-            val noNode = currentNode.no
-
-            // Determine the text for the yes/no outcomes
-            val yesText = yesNode?.decision ?: yesNode?.question ?: "Error"
-            val noText = noNode?.decision ?: noNode?.question ?: "Error"
-
-            // Find which path was taken to determine the next node
-            // This is a simplified way to determine the path from the JSON structure
-            val nextNode: DecisionNode?
-            val pathTaken: Path
-
-            // A simple heuristic: assume the path with a non-null 'decision' or 'question' is the one taken next.
-            // This works for a linear path extracted from the tree.
-            if (yesNode != null && (yesNode.decision != null || yesNode.question != null) && (noNode?.decision == null && noNode?.question == null)) {
-                pathTaken = Path.YES
-                nextNode = yesNode
-            } else if (noNode != null && (noNode.decision != null || noNode.question != null) && (yesNode?.decision == null && yesNode?.question == null)) {
-                pathTaken = Path.NO
-                nextNode = noNode
-            } else {
-                // This logic needs to be smarter if the tree is more complex, but for a single path it's okay.
-                // We'll just assume one branch leads to a dead end.
-                if (yesNode != null) {
-                    pathTaken = Path.YES
-                    nextNode = yesNode
-                } else {
-                    pathTaken = Path.NO
-                    nextNode = noNode
-                }
-
-            }
-
-            path.add(DecisionPoint(question, yesText, noText, pathTaken))
-            currentNode = nextNode
+        // If the node has a final decision, add it to the list and stop
+        if (node.decision != null) {
+            decisionSteps.add(DecisionStep(StepType.RESULT, node.decision))
+            return
         }
-        return path
+
+        // If the node has a question, add it to the list
+        if (node.question != null) {
+            decisionSteps.add(DecisionStep(StepType.QUESTION, node.question))
+
+            val yesBranch = node.yes
+            val noBranch = node.no
+
+            // Check which path the AI took by seeing which 'reason' is not null
+            if (yesBranch?.reason != null) {
+                decisionSteps.add(DecisionStep(StepType.REASONING, yesBranch.reason))
+                // Recursively call the function on the next step in the 'yes' branch
+                buildLinearPath(yesBranch.nextStep)
+            } else if (noBranch?.reason != null) {
+                decisionSteps.add(DecisionStep(StepType.REASONING, noBranch.reason))
+                // Recursively call the function on the next step in the 'no' branch
+                buildLinearPath(noBranch.nextStep)
+            }
+        }
     }
 }
