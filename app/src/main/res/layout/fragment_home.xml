@@ -9,18 +9,30 @@
     tools:context=".ui.HomeFragment">
 
     <!-- Top Bar with Logo and Profile Picture -->
-    <TextView
-        android:id="@+id/tv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="TrustBubble"
-        android:textColor="@color/text_color_primary"
-        android:textSize="20sp"
-        android:textStyle="bold"
+<!--    <TextView-->
+<!--        android:id="@+id/tv_logo"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="TrustBubble"-->
+<!--        android:textColor="@color/text_color_primary"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="105dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="App Logo"
+        android:src="@drawable/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_profile"
@@ -29,8 +41,8 @@
         android:layout_marginEnd="24dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_logo"
-        app:layout_constraintBottom_toBottomOf="@id/tv_logo">
+        app:layout_constraintTop_toTopOf="@+id/ivLogo"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLogo">
 
         <ImageView
             android:id="@+id/profile_image"
@@ -51,9 +63,9 @@
         android:textColor="@color/text_color_primary"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tv_logo"
+        app:layout_constraintStart_toStartOf="@+id/ivLogo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
 
     <TextView
         android:id="@+id/tv_greeting_subtitle"
@@ -77,7 +89,7 @@
         app:cornerRadius="16dp"
         android:backgroundTint="@color/brand_purple"
         app:layout_constraintEnd_toEndOf="@id/card_profile"
-        app:layout_constraintStart_toStartOf="@id/tv_logo"
+        app:layout_constraintStart_toStartOf="@+id/ivLogo"
         app:layout_constraintTop_toBottomOf="@id/tv_greeting_subtitle" />
 
     <!-- Progress Section -->
@@ -131,7 +143,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/ll_quick_tools"
-        app:layout_constraintStart_toStartOf="@id/tv_logo" />
+        app:layout_constraintStart_toStartOf="@+id/ivLogo" />
 
     <LinearLayout
         android:id="@+id/ll_quick_tools"
@@ -141,7 +153,7 @@
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/card_profile"
-        app:layout_constraintStart_toStartOf="@id/tv_logo">
+        app:layout_constraintStart_toStartOf="@+id/ivLogo">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_scan_image"
