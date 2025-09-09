@@ -21,4 +21,10 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+    <style name="Theme.MyApp" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Set splash screen as window background -->
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
 </resources>

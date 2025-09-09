@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 object RetrofitClient {
     // IMPORTANT: REPLACE WITH YOUR IP ADDRESS OR NGROK URL
-    private const val BASE_URL = "https://e7199626dc34.ngrok-free.app/"
+    private const val BASE_URL = "https://ccdf4596fbe2.ngrok-free.app/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

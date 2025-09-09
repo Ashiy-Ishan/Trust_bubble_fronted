@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background -->
+    <item android:drawable="@color/white" />
+
+    <!-- Logo - Scaled and Centered -->
+    <item
+        android:width="200dp"
+        android:height="200dp"
+        android:gravity="center">
+        <bitmap
+            android:src="@drawable/app_logo"
+            android:gravity="fill" />
+    </item>
+</layer-list>
