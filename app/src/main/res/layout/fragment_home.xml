@@ -60,7 +60,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:text="Hi, Ashinshana !"
-        android:textColor="@color/text_color_primary"
+        android:textColor="#40076B"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/ivLogo"
@@ -78,30 +78,33 @@
         app:layout_constraintTop_toBottomOf="@id/tv_greeting_name" />
 
     <!-- Active Scan Button -->
+
+    <!-- Progress Section -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_active_scan"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
+        android:backgroundTint="#40076B"
         android:text="Activate Scan Bubble"
         android:textColor="@color/icon_background"
         android:textSize="16sp"
         app:cornerRadius="16dp"
-        android:backgroundTint="#40076B"
         app:layout_constraintEnd_toEndOf="@id/card_profile"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ivLogo"
         app:layout_constraintTop_toBottomOf="@id/tv_greeting_subtitle" />
 
-    <!-- Progress Section -->
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:progress="0"
         app:indicatorColor="#40076B"
         app:indicatorSize="150dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_active_scan"
         app:trackColor="#E6E0E9"
@@ -163,9 +166,9 @@
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:text="Scan Image"
-            android:textColor="@color/text_color_primary"
+            android:textColor="#40076B"
             app:icon="@drawable/ic_scan_image"
-            app:iconGravity="top"
+            app:iconGravity="textTop"
             app:iconTint="@color/brand_purple"
             android:backgroundTint="@color/white"
             app:strokeWidth="0dp"
@@ -179,9 +182,9 @@
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:text="Scan Text"
-            android:textColor="@color/text_color_primary"
+            android:textColor="#40076B"
             app:icon="@drawable/ic_scan_text"
-            app:iconGravity="top"
+            app:iconGravity="textTop"
             app:iconTint="@color/brand_purple"
             android:backgroundTint="@color/white"
             app:strokeWidth="0dp"
