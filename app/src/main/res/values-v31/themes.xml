@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MyApp" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Android 12+ SplashScreen API -->
+        <item name="android:windowSplashScreenBackground">@color/white</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/app_logo</item>
+    </style>
+</resources>
