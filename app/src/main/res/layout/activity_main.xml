@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:itemIconTint="@color/bottom_nav_icon_tint"
-        app:itemTextColor="@color/bottom_nav_icon_tint"
+        app:itemTextColor="#40076B"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
