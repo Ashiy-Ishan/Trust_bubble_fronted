@@ -10,4 +10,3 @@
     android:paddingTop="6dp"
     android:paddingBottom="6dp"
     android:background="@drawable/rounded_background" />
-
